@@ -1,6 +1,6 @@
 package com.edu.service;
 
-import com.edu.model.Employee;
+import com.edu.schema.Employee;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -36,7 +36,7 @@ public class EmployeeServiceTest {
         employee.setLastName("User");
         employee.setEmail("test@test.com");
         employee.setPassword("password");
-        employee.setAge(30);
+        employee.setAge("30");
         employee.setAddress("Test");
 
         when(employeeRepository.save(any(Employee.class))).thenReturn(employee);
@@ -61,7 +61,7 @@ public class EmployeeServiceTest {
         employee.setLastName("User");
         employee.setEmail("test@test.com");
         employee.setPassword("password");
-        employee.setAge(30);
+        employee.setAge("30");
         employee.setAddress("Test");
 
         when(employeeRepository.findById(1L)).thenReturn(Optional.of(employee));
@@ -81,7 +81,7 @@ public class EmployeeServiceTest {
         employee.setLastName("User");
         employee.setEmail("test@test.com");
         employee.setPassword("password");
-        employee.setAge(30);
+        employee.setAge("30");
         employee.setAddress("Test");
 
         Employee employee2 = new Employee();
@@ -91,7 +91,7 @@ public class EmployeeServiceTest {
         employee.setLastName("User2");
         employee.setEmail("test2@test.com");
         employee.setPassword("password");
-        employee.setAge(30);
+        employee.setAge("30");
         employee.setAddress("Test2");
 
         List<Employee> employees = new ArrayList<>();
@@ -114,7 +114,7 @@ public class EmployeeServiceTest {
         existingEmployee.setFirstName("Old");
         existingEmployee.setLastName("User");
         existingEmployee.setEmail("olduser@example.com");
-        existingEmployee.setAge(30);
+        existingEmployee.setAge("30");
         existingEmployee.setAddress("Old Address");
 
         Employee updatedEmployee = new Employee();
@@ -123,7 +123,7 @@ public class EmployeeServiceTest {
         updatedEmployee.setFirstName("New");
         updatedEmployee.setLastName("User");
         updatedEmployee.setEmail("newuser@example.com");
-        updatedEmployee.setAge(35);
+        updatedEmployee.setAge("35");
         updatedEmployee.setAddress("New Address");
 
         when(employeeRepository.findById(1L)).thenReturn(Optional.of(existingEmployee));
@@ -135,7 +135,7 @@ public class EmployeeServiceTest {
         assertEquals("New", result.getFirstName());
         assertEquals("User", result.getLastName());
         assertEquals("newuser@example.com", result.getEmail());
-        assertEquals(35, result.getAge());
+        assertEquals("35", result.getAge());
         assertEquals("New Address", result.getAddress());
 
         verify(employeeRepository, times(1)).findById(1L);

@@ -1,5 +1,6 @@
 package com.edu;
 
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -7,9 +8,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class EmployeeJwtApplication {
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-		SpringApplication.run(EmployeeJwtApplication.class, args
-		);
-	}
+        SpringApplication.run(EmployeeJwtApplication.class, args);
+    }
+
+
 }

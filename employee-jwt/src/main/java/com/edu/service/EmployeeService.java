@@ -1,8 +1,15 @@
 package com.edu.service;
 
-import com.edu.model.Employee;
+import com.edu.exception.UserAlreadyExistsException;
+import com.edu.schema.Employee;
+import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,12 +17,19 @@ import java.util.Optional;
 @Service
 public class EmployeeService {
 
+    private static final Logger log = LoggerFactory.getLogger(EmployeeService.class);
+
     @Autowired
     private EmployeeRepository employeeRepository;
 
     public Employee saveEmployee(Employee employee) {
+        employeeRepository.findByUsername(employee.getUsername()).ifPresent(e -> {
+            throw new UserAlreadyExistsException("Employee already exists");
+        });
 
-        return employeeRepository.save(employee);
+        Employee savedEmployee = employeeRepository.save(employee);
+        log.info("Employee saved : " + savedEmployee);
+        return savedEmployee;
     }
 
     public Optional<Employee> getEmployeeById(Long id) {
@@ -24,28 +38,20 @@ public class EmployeeService {
     }
 
     public List<Employee> getAllEmployees() {
+        log.info("Get all employees");
         return employeeRepository.findAll();
     }
 
-    public Employee updateEmployee(Long id, Employee employee) {
-        Optional<Employee> existingEmployee = getEmployeeById(id);
-        if (existingEmployee.isPresent()) {
-            // Update the existing employee with the new details
-            Employee emp = existingEmployee.get();
-            emp.setUsername(employee.getUsername());
-            emp.setFirstName(employee.getFirstName());
-            emp.setLastName(employee.getLastName());
-            emp.setEmail(employee.getEmail());
-            emp.setAge(employee.getAge());
-            emp.setAddress(employee.getAddress());
-            return employeeRepository.save(emp);
-        } else {
-            // Handle case where employee does not exist (could throw an exception or return null)
-            return null;
-        }
+    public Employee updateEmployee(Long id, @Valid Employee employee) {
+
+        employeeRepository.findById(id).orElseThrow(() -> new RuntimeException("Employee not found with id: " + id));
+
+        return employeeRepository.save(employee);
     }
 
     public void deleteEmployee(Long id) {
-        employeeRepository.deleteById(id);
+        log.info("Delete an employee with id: " + id);
+        getEmployeeById(id).ifPresent(employee -> employeeRepository.delete(employee));
+        log.info("Delete an employee with id: " + id);
     }
 }

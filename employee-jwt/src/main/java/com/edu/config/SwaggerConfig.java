@@ -1,3 +1,4 @@
+/*
 package com.edu.config;
 
 
@@ -16,7 +17,8 @@ public class SwaggerConfig {
         return new OpenAPI()
                 .info(new Info()
                         .title("Employee Management API")
-                        .version("1.0")
+                        .version("3.1.0")
                         .description("This is the Employee Management API"));
     }
 }
+*/

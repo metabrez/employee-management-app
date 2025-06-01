@@ -1,6 +1,6 @@
 package com.edu.controller;
 
-import com.edu.model.Employee;
+import com.edu.schema.Employee;
 import com.edu.service.EmployeeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -48,7 +48,7 @@ class EmployeeControllerTest {
         employee.setLastName("User");
         employee.setEmail("test@email.com");
         //employee.setPassword("password");
-        employee.setAge(30);
+        employee.setAge("30");
         employee.setAddress("Test Address");
 
         when(employeeService.saveEmployee(any(Employee.class))).thenReturn(employee);
@@ -86,7 +86,7 @@ class EmployeeControllerTest {
         employee.setFirstName("Test");
         employee.setLastName("User");
         employee.setEmail("test@email.com");
-        employee.setAge(30);
+        employee.setAge("30");
         employee.setAddress("Test Address");
 
         Employee employee2 = new Employee();
@@ -95,7 +95,7 @@ class EmployeeControllerTest {
         employee2.setFirstName("Test2");
         employee2.setLastName("User2");
         employee2.setEmail("test2@email.com");
-        employee2.setAge(30);
+        employee2.setAge("30");
         employee2.setAddress("Test Address2");
 
         List<Employee> employees = new ArrayList<>();
@@ -125,7 +125,7 @@ class EmployeeControllerTest {
         employee.setFirstName("Test");
         employee.setLastName("User");
         employee.setEmail("test@email.com");
-        employee.setAge(30);
+        employee.setAge("30");
         employee.setAddress("Test Address");
         when(employeeService.updateEmployee(any(Long.class),any(Employee.class))).thenReturn(employee);
 

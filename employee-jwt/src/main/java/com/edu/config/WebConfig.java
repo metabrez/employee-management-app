@@ -1,3 +1,4 @@
+/*
 package com.edu.config;
 
 import org.springframework.context.annotation.Configuration;
@@ -13,3 +14,4 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 }
+*/
